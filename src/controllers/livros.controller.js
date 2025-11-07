@@ -78,3 +78,22 @@ export const livrosComAvaliacoes = async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 };
+
+export const listarAvaliacoesLivros = async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+      SELECT 
+        l.titulo,
+        IFNULL(ROUND(AVG(a.nota), 2), 0) AS mediaNotas,
+        COUNT(a.id) AS totalAvaliacoes
+      FROM livros l
+      LEFT JOIN avaliacoes a ON l.id = a.livroId
+      GROUP BY l.id
+    `);
+
+    res.json(rows);
+  } catch (error) {
+    console.error('Erro ao listar avaliações de livros:', error);
+    res.status(500).json({ erro: error.message });
+  }
+};
