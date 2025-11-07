@@ -3,9 +3,8 @@ import { listarLivros, buscarLivro, criarLivro, atualizarLivro, excluirLivro, li
 
 const router = express.Router();
 
-router.get('/avaliacoes', livrosComAvaliacoes); // precisa vir antes de '/:id'
-router.get('/', listarLivros);
-router.get('/:id', buscarLivro);
+router.get('/avaliacoes', livrosComAvaliacoes); 
+router.get('/avaliacoes/:id', livrosComAvaliacoes); 
 router.post('/', criarLivro);
 router.put('/:id', atualizarLivro);
 router.delete('/:id', excluirLivro);
